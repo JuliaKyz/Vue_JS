@@ -1,7 +1,5 @@
 .DS_Store
-lesson_1/calc-project/node_modules
-lesson_3/my_personal_costs/node_modules
-/components
+node_modules
 /dist
 
 
