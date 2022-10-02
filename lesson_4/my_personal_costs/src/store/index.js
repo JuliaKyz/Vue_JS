@@ -13,10 +13,11 @@ export default new Vuex.Store({
 
 
   getters: {
-    getCosts(state) {
+    getCostsList(state) {
       return state.costsList.filter((cost) => new RegExp(state.searchString, 'i').test(cost.title))
 
     },
+    getCategoryList: state => state.categoryList,
     getSearchString: ({ searchString }) => searchString
   },
 
@@ -28,11 +29,19 @@ export default new Vuex.Store({
       const idx = state.list.findIndex((item) => item.id == id)
       state.list.splice(idx, 1)
     },
-    setSearchString: (state, payload) => state.searchString = payload
+    setSearchString: (state, payload) => state.searchString = payload,
+
+    setCategories(state, payload) {
+      if (!Array.isArray(payload)) {
+        payload = [payload]
+      }
+      state.categoryList.push(...payload)
+    },  //??
+
   },
 
   actions: {
-    loadCosts({ commit }) {
+    loadCostsList({ commit }) {
       return new Promise((resolve) => {
         //имитируем работу с сетью
         setTimeout(() => {
@@ -43,14 +52,20 @@ export default new Vuex.Store({
           ])
         }, 1000)
       })
-        .then(list => {
-          //запускаем изменение состояния через commit
-          commit('setCosts', list)
-        })
+        .then((list) => commit('setCostsList', list))
     }
-  },
+  }
 })
 
-// created() {
-//   this.$store.commit(setCostsList.this.fetchData())
-// }
+
+loadCategories({ commit }) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(['food', 'transport', 'education', 'healthcare'])
+    }, 1000)
+  })
+    .then((res) =>
+      commit('setCategories', res))
+}
+
+

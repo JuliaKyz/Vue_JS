@@ -16,8 +16,8 @@ export default {
   components: { AddButton, Form, List },
   data() {
     return {
-      // costsList: [],
-      isPopupActive: false
+      isPopupActive: false,
+      costsList: []
     }
   },
   methods: {
