@@ -13,12 +13,12 @@ export default new Vuex.Store({
 
 
   getters: {
-    getCostsList(state) {
-      return state.costsList.filter((cost) => new RegExp(state.searchString, 'i').test(cost.title))
-
-    },
-    getCategoryList: state => state.categoryList,
-    getSearchString: ({ searchString }) => searchString
+    getCostsList: state => state.costsList,
+    // getCategoryList: state => state.categoryList,
+    getSearchString: ({ searchString }) => searchString,
+    getFullCostValue: state => {
+      return state.costsList.reduce((res, cur) => res + cur.value, 0)
+    }
   },
 
 
@@ -29,15 +29,7 @@ export default new Vuex.Store({
       const idx = state.list.findIndex((item) => item.id == id)
       state.list.splice(idx, 1)
     },
-    setSearchString: (state, payload) => state.searchString = payload,
-
-    setCategories(state, payload) {
-      if (!Array.isArray(payload)) {
-        payload = [payload]
-      }
-      state.categoryList.push(...payload)
-    },  //??
-
+    setSearchString: (state, payload) => state.searchString = payload
   },
 
   actions: {
@@ -56,16 +48,5 @@ export default new Vuex.Store({
     }
   }
 })
-
-
-loadCategories({ commit }) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(['food', 'transport', 'education', 'healthcare'])
-    }, 1000)
-  })
-    .then((res) =>
-      commit('setCategories', res))
-}
 
 
