@@ -26,6 +26,17 @@ export default new Vuex.Store({
   mutations: {
     setCostsList: (state, payload) => (state.costsData = payload),
     addCostsList: (state, payload) => state.costsData.push(payload),
+    deleteCostsList: (state, payload) => state.costsData.splice(
+        state.costsData.indexOf(payload),
+        1
+    ),
+    editCostsList: (state, payload) => (state.costsData = state.costsData.map((cost) => {
+      if(cost.id === payload.id){
+        return payload;
+      } else{
+        return cost
+      }
+    }))
   },
 
   // для обмена данными между клиентом-сервером (асинхронных операций)

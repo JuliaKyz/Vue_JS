@@ -10,15 +10,22 @@
     <li v-for="cost in list" :key="cost.id" class="costs-list__item">
       <span v-for="(item, idx) in cost" :key="idx" class="row">{{ item }}</span>
       <span>
-        <div @click="showMenu" class="btn">menu</div>
+        <span @click="showContextMenu($event, cost)" >&#10247;</span>
       </span>
     </li>
+    <ContextMenu></ContextMenu>
   </ul>
 </template>
 
 <script>
+
+import ContextMenu from "./ContextMenu.vue";
+
 export default {
   name: "List",
+  components: {
+    ContextMenu,
+  },
 
   mounted() {
     this.$store.dispatch("loadCosts");
@@ -27,6 +34,12 @@ export default {
   computed: {
     list() {
       return this.$store.getters.getCostsList;
+    },
+  },
+
+  methods: {
+    showContextMenu(event, cost) {
+      this.$context.show(event.currentTarget, cost);
     },
   },
 };

@@ -11,7 +11,8 @@
 
         <input v-model="date" :class="{ error: !this.date }" class="form-input date" type="text" placeholder="Date" />
 
-        <div @click="submitData" class="btn">ADD +</div>
+        <div v-if="mode === 'edit'" @click="onEditClick" class="btn">EDIT</div>
+        <div v-if="mode === 'add'" @click="submitData" class="btn">ADD +</div>
     </div>
 </template>
 
@@ -28,6 +29,7 @@ export default {
             value: this.$route.query.value,
             date: new Date().toLocaleDateString(),
             error: false,
+            mode: this.$route.params.mode
         };
     },
 
@@ -46,6 +48,15 @@ export default {
                 this.date = "";
             }
         },
+
+        onEditClick(){
+          this.$store.commit("editCostsList", {
+            id: +this.$route.query.id,
+            date: this.date,
+            category: this.category,
+            value: this.value,
+          })
+        }
     }
 };
 </script>
@@ -59,7 +70,7 @@ export default {
     top: 300px;
     left: calc(55% - 300px);
     background-color: white;
-    border: 1px solid cadetblue;
+    border: 1px solid #7242b9;
     border-radius: 9px;
     display: flex;
     align-items: center;
@@ -70,7 +81,7 @@ export default {
         width: 80%;
         height: 40px;
         border: none;
-        border-bottom: 1px solid cadetblue;
+        border-bottom: 1px solid #7242b9;
         padding: 0;
         margin: 10px 0;
         outline: none;

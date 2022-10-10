@@ -1,16 +1,13 @@
 export default {
-    install(Vue) {
-        if (this.installed) {
-            return
-        }
-        this.installed = true
-        Vue.prototype.$modal = {
-            show() {
-                console.log('Shown!')
-            },
-            hide() {
-                console.log('Hiden!')
-            }
-        }
-    }
-}
+  install(Vue) {
+    Vue.prototype.$context = {
+      EventEmitter: new Vue(),
+      show(element, cost) {
+        this.EventEmitter.$emit("showContextMenu", cost);
+      },
+      hide(cost) {
+        this.EventEmitter.$emit("hideContextMenu", {cost});
+      },
+    };
+  },
+};
