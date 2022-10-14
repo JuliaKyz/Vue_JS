@@ -1,0 +1,30 @@
+.DS_Store
+lesson_1/calc-project/node_modules
+lesson_3/my_personal_costs/node_modules
+lesson_4/
+lesson_5/my_personal_costs/node_modules
+lesson_6/my_personal_costs/node_modules
+lesson_7/my_personal_costs/node_modules
+lesson_8/my_personal_costs/node_modules
+/components
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
